@@ -1776,6 +1776,18 @@ function showSyncBanner(msg, color) {
 }
 
 async function initApp() {
+  // PIN de acceso
+  const PIN_CORRECTO = '1312';
+  const pinGuardado = sessionStorage.getItem('chaina_pin');
+  if (pinGuardado !== PIN_CORRECTO) {
+    const ingresado = prompt('Ingresá el PIN para acceder a Chaina:');
+    if (ingresado !== PIN_CORRECTO) {
+      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#aaa;letter-spacing:.1em;text-transform:uppercase;">Acceso denegado</div>';
+      return;
+    }
+    sessionStorage.setItem('chaina_pin', PIN_CORRECTO);
+  }
+
   // Render inmediato con datos locales
   buildChips();
   buildGantt();
